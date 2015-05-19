@@ -71,3 +71,4 @@ pon cisco2600		# Пускане на PPP
 
 poff cisco2600		# Спиране на PPP
 ```
+ 

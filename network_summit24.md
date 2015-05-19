@@ -62,3 +62,4 @@ configure port 25 display-string "alpha"
 # което е по подразбиране
 configure vlan default delete ports all
 ```
+ 
