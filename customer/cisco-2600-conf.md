@@ -51,7 +51,8 @@
 
   * да се добави пълното ръководство за конфигурация към git.
   * 
-## Често използвани команди
+
+##Често използвани команди
 
 ###### Changing hostname 
 client-router(config)hostname client-router
@@ -73,13 +74,13 @@ client-router#config t
 client-router(config)#service password-encryption 
 
 
-###### Set DNS server: 
+###### Настройка на DNS резолвер
 client-router(config)#ip name-server 10.1.2.1
 
-###### Set domain
+###### Настройка на default domain
 client-router(config)#ip domain-name isp.initlab.org
 
-###### Set NTP
+###### NTP сървър настройка
 client-router(config)#clock timezone PST -8
 client-router(config)#ntp server 10.1.2.1
 
