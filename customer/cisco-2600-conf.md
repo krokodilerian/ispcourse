@@ -50,3 +50,52 @@
 ## За довършване
 
   * да се добави пълното ръководство за конфигурация към git.
+  * 
+## Често използвани команди
+
+###### Changing hostname 
+client-router(config)hostname client-router
+
+###### Configure password
+client-router(config)enable secret zoo3aiH;u0xe=imooch9
+
+###### Configure vty password
+client-router(config)# line vty 0 4
+client-router(config-line)# password  zoo3aiH;u0xe=imooch9
+client-router(config-line)# login
+
+###### Configure console password 
+client-router(config)# line console 0
+client-router(config-line)#password 0 zoo3aiH;u0xe=imooch9
+
+###### Configure password encryption
+client-router#config t
+client-router(config)#service password-encryption 
+
+
+###### Set DNS server: 
+client-router(config)#ip name-server 10.1.2.1
+
+###### Set domain
+client-router(config)#ip domain-name isp.initlab.org
+
+###### Set NTP
+client-router(config)#clock timezone PST -8
+client-router(config)#ntp server 10.1.2.1
+
+###### Проверка на дата/час
+client-router#show clock
+
+###### Set interface defaults on s1/7 - Рестартира конфигурацията на интефейса 
+client-router(config)# default interface s1/7
+
+
+###### Configure interface description
+client-router(config)# int s1/0
+client-router(config-if)#description uplink-to-beta    
+
+###### Disable domain ip lookup (изнервящото lookup-ване като въведеш грешна команда и нямаш dsn resolver) 
+client-router(config)# no ip domain-lookup
+
+###### Disable console logging (досадни съобщения за вдигане на интерфейси)
+client-router(config)# no logging console
