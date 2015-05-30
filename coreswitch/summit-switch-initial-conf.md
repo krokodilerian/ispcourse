@@ -83,9 +83,9 @@ ExtremeWare Summit24 е управляем мрежов комутатор (mana
   * VLAN 50 (customers_50) свързва Cisco 2500 със лекционната зала на InitLab, там е WAP nineties:
 
         create vlan "customers_50"
-	configure vlan "customers_50" tag 50
-	configure vlan "customers_50" add ports 2 untagged
-	configure vlan "customers_50" add ports 25 tagged
+        configure vlan "customers_50" tag 50
+        configure vlan "customers_50" add ports 2 untagged
+        configure vlan "customers_50" add ports 25 tagged
 
 ## Други често използвани команди
 
