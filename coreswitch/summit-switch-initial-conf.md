@@ -11,12 +11,15 @@ ExtremeWare Summit24 е управляем мрежов комутатор (mana
   * VLAN 2 (mgmt) е за управление,
   * VLAN 3 (wan-initlab) е свързан към локалната мрежа на Инитлаб,
   * VLAN 6 (wan-tbc) е свързан към публичния Интернет през TBC,
-  * VLAN 50 (customers_50) е излиза в лекционната зала на InitLab, където е свързан WAP nineties.
+  * VLAN 50 (customers_50) е излиза в лекционната зала на InitLab, където е свързан WAP nineties,
+  * VLAN 1024 (core) за опорно оборудване.
 
 Портове:
 
   * 1 е свързан към сървъра (`10.1.2.1`), и трите VLAN-а (2, 3, 6) са tagged,
   * 2 е свързан към "клиента" (Cisco 2500, `10.1.3.2`) във VLAN 50 (customers_50), untagged,
+  * 3 е свързан към `accessrouter` във VLAN 1024 (core) tagged,
+  * 4 е свързан към втория сървър, gamma (`10.1.2.3`), VLAN-и 2, 3, 1024 tagged,
   * 6 e NetControl устройство (`10.1.2.5`) през VLAN 2 (mgmt),
   * 25 е свързан към мрежите на Инитлаб и TBC, VLAN 3 (wan-initlab) untagged, VLAN 6 (wan-tbc) tagged, VLAN 50 (customers_50) tagged,
   * останалите са за управление, VLAN 2 (mgmt) untagged.
@@ -55,6 +58,8 @@ ExtremeWare Summit24 е управляем мрежов комутатор (mana
 
         configure ports 1 display-string "1-beta"
         configure ports 2 display-string "2-client"
+        configure ports 3 display-string "3-accessrouter"
+        configure ports 4 display-string "4-gamma"
         configure ports 6 display-string "6-netcontrol"
         configure ports 25 display-string "25-InitLab"
 
@@ -64,13 +69,15 @@ ExtremeWare Summit24 е управляем мрежов комутатор (mana
         configure vlan "mgmt" tag 2
         configure vlan "mgmt" ipaddress 10.1.2.2 255.255.255.0
         configure vlan "mgmt" add ports 1 tagged
-        configure vlan "mgmt" add ports 3-24 untagged
+        configure vlan "mgmt" add ports 4 tagged
+        configure vlan "mgmt" add ports 5-24 untagged
 
   * Създава се VLAN 3 (wan-initlab) -- свързаност към локалната мрежа на Инитлаб:
 
         create vlan "wan-initlab"
         configure vlan "wan-initlab" tag 3
         configure vlan "wan-initlab" add ports 1 tagged
+        configure vlan "wan-initlab" add ports 4 tagged
         configure vlan "wan-initlab" add ports 25 untagged
 
   * Създава се VLAN 6 (wan-tbc) -- свързаност към публичния Интернет през TBC:
@@ -87,9 +94,17 @@ ExtremeWare Summit24 е управляем мрежов комутатор (mana
         configure vlan "customers_50" add ports 2 untagged
         configure vlan "customers_50" add ports 25 tagged
 
+  * VLAN 1024 (core) за опорно оборудване:
+
+        create vlan "core"
+        configure vlan "core" tag 1024
+        configure vlan "core" add ports 1 tagged
+        configure vlan "core" add ports 3 untagged
+        configure vlan "core" add ports 4 tagged
+
 ## Други често използвани команди
 
   * `show vlan` показва детайлен списък на всички конфигурирани VLAN-и, `show vlan "name"` за конкретен,
   * `show ports info`/`show port # info` показва детайлен списък на конфигурацията на портовете.
   * `save configuration` за запазване на промените по конфигурацията,
-  * `upload configuration 10.1.2.1 summit-20150530.conf` за качване на конфигурацията по TFTP (файла трябва да се създаде (примерно с `touch`) в `/srv/tftp` и да се дадат права за писане на всички -- `0666`).
+  * `upload configuration 10.1.2.1 summit-20150606.conf` за качване на конфигурацията по TFTP (файла трябва да се създаде (примерно с `touch`) в `/srv/tftp` и да се дадат права за писане на всички -- `0666`).
